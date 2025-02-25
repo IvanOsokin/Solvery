@@ -1,0 +1,2 @@
+This is an input string!
+Size = 25
