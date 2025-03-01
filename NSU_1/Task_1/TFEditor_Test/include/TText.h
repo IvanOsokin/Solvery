@@ -3,7 +3,6 @@
 #include "pch.h"
 
 #include "Text.h"
-#include "Text.cpp"
 
 TEST(TextTest_Size, TestSize)
 {

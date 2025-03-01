@@ -4,7 +4,6 @@
 
 #include "Utils.h"
 #include "TextEditor.h"
-#include "TextEditor.cpp"
 
 class TextEditorTest : public ::testing::Test
 {

@@ -4,7 +4,6 @@
 
 #include "Utils.h"
 #include "TextFileWriter.h"
-#include "TextFileWriter.cpp"
 
 class TextFileWriterTest : public ::testing::Test
 {

@@ -4,7 +4,6 @@
 
 #include "Utils.h"
 #include "TextFileReader.h"
-#include "TextFileReader.cpp"
 
 class TextFileReaderTest : public ::testing::Test
 {
