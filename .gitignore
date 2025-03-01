@@ -1,1 +1,7 @@
+#Solution ignores
 NSU_1/.vs
+NSU_1/packages
+NSU_1/x64
+
+#Projects ignores
+NSU_1/Task_*/**/x64
