@@ -2,6 +2,11 @@
 NSU_1/.vs
 NSU_1/packages
 NSU_1/x64
+NSU_1/Win32
+NSU_1/Debug
+NSU_1/Release
 
 #Projects ignores
 NSU_1/Task_*/**/x64
+NSU_1/Task_*/**/Debug
+NSU_1/Task_*/**/Release
