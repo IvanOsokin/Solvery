@@ -13,6 +13,7 @@ Text& Text::Replace(const std::string& oldPattern, const std::string& newPattern
 			{
 				nextPos = pos + newPattern.size();
 			}
+			pos = _data.find(oldPattern, nextPos);
 		}
 	}
 	return *this;
@@ -29,8 +30,6 @@ Text& Text::Append(const Text& text)
 
 bool Text::TailStartsWithPattern(const std::string& pattern, size_t& patternLastPos) const
 {
-	patternLastPos = std::string::npos;
-
 	if (_data.empty() || pattern.empty())
 	{
 		return false;
@@ -47,6 +46,7 @@ bool Text::TailStartsWithPattern(const std::string& pattern, size_t& patternLast
 			break;
 		}
 		nextPos = patternLastPos + 1;
+		patternLastPos = _data.find(pattern[0], nextPos);
 	}
 
 	if (std::string::npos == patternLastPos)
