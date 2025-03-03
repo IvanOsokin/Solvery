@@ -41,9 +41,6 @@
     <ClInclude Include="Errors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TextFileReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>

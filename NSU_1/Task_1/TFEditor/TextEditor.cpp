@@ -1,7 +1,7 @@
 #include "TextEditor.h"
 #include "Text.h"
 
-TextEditor::TextEditor(const fs::path& input, const fs::path& output)
+TextEditor::TextEditor(const std::filesystem::path& input, const std::filesystem::path& output)
 	: _txtReader(std::make_unique<TextFileReader>(input))
 	, _txtWriter(std::make_unique<TextFileWriter>(output))
 { }
@@ -20,17 +20,26 @@ void TextEditor::ReplaceSubstring(const std::string& oldPattern, const std::stri
 			do
 			{
 				size_t curBufSize = 0;
-				if (extraBufSize > _bufSize) curBufSize = _bufSize;
-				else curBufSize = extraBufSize;
+				if (_bufSize < extraBufSize)
+				{
+					curBufSize = _bufSize;
+				}
+				else
+				{
+					curBufSize = extraBufSize;
+				}
 
 				Text tmpText(_txtReader->Read(curBufSize));
 				text.Append(tmpText);
 
 				extraBufSize -= curBufSize;
 
-			} while (extraBufSize > 0);
+			} while (0 < extraBufSize);
 		}
-		if (!oldPattern.empty()) text.Replace(oldPattern, newPattern);
+		if (!oldPattern.empty())
+		{
+			text.Replace(oldPattern, newPattern);
+		}
 		_txtWriter->Write(text.Data());
 	}
 	_txtWriter->Flush();

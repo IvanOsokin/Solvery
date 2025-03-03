@@ -187,7 +187,6 @@
     <ClInclude Include="Text.h" />
     <ClInclude Include="TextFileReader.h" />
     <ClInclude Include="TextFileWriter.h" />
-    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,7 +10,7 @@ class TextEditor
 public:
 	TextEditor() = delete;
 	TextEditor(const TextEditor& other) = delete;
-	TextEditor(const fs::path& input, const fs::path& output);
+	TextEditor(const std::filesystem::path& input, const std::filesystem::path& output);
 	~TextEditor() = default;
 
 	void ReplaceSubstring(const std::string& oldPattern, const std::string& newPattern);

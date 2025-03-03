@@ -4,12 +4,15 @@ Text& Text::Replace(const std::string& oldPattern, const std::string& newPattern
 {
 	if (!oldPattern.empty())
 	{
-		size_t pos = std::string::npos;
 		size_t nextPos = 0UL;
-		while ((pos = _data.find(oldPattern, nextPos)) != std::string::npos)
+		size_t pos = _data.find(oldPattern, nextPos);
+		while (std::string::npos != pos)
 		{
 			_data.replace(pos, oldPattern.size(), newPattern);
-			if (newPattern.size() > oldPattern.size()) nextPos = pos + newPattern.size();
+			if (newPattern.size() > oldPattern.size())
+			{
+				nextPos = pos + newPattern.size();
+			}
 		}
 	}
 	return *this;
@@ -17,7 +20,10 @@ Text& Text::Replace(const std::string& oldPattern, const std::string& newPattern
 
 Text& Text::Append(const Text& text)
 {
-	if (!text._data.empty()) _data.append(text._data);
+	if (!text._data.empty())
+	{
+		_data.append(text._data);
+	}
 	return *this;
 }
 
@@ -25,19 +31,28 @@ bool Text::TailStartsWithPattern(const std::string& pattern, size_t& patternLast
 {
 	patternLastPos = std::string::npos;
 
-	if (_data.empty() || pattern.empty()) return false;
+	if (_data.empty() || pattern.empty())
+	{
+		return false;
+	}
 
-	patternLastPos = 0;
 	size_t nextPos = 0UL;
-	while ((patternLastPos = _data.find(pattern[0], nextPos)) != std::string::npos)
+	patternLastPos = _data.find(pattern[0], nextPos);
+	while (std::string::npos != patternLastPos)
 	{
 		size_t substrSize = _data.size() - patternLastPos;
 		auto p = _data.find(pattern.substr(0, substrSize), nextPos);
-		if (p != std::string::npos) break;
+		if (std::string::npos != p)
+		{
+			break;
+		}
 		nextPos = patternLastPos + 1;
 	}
 
-	if (patternLastPos == std::string::npos) return false;
+	if (std::string::npos == patternLastPos)
+	{
+		return false;
+	}
 
 	if (_data.size() - patternLastPos >= pattern.size())
 	{
