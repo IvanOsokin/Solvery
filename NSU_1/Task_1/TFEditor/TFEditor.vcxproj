@@ -181,7 +181,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Errors.h" />
+    <ClInclude Include="Const.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="TextEditor.h" />
     <ClInclude Include="Text.h" />

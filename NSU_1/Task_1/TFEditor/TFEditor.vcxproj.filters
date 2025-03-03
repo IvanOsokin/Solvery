@@ -38,7 +38,7 @@
     <ClInclude Include="TextEditor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Errors.h">
+    <ClInclude Include="Const.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextFileReader.h">
