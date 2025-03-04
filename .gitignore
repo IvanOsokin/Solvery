@@ -10,3 +10,6 @@ NSU_1/Release
 NSU_1/Task_*/**/x64
 NSU_1/Task_*/**/Debug
 NSU_1/Task_*/**/Release
+
+output.txt
+!NSU_1/Task_*/**_Test/Files/output.txt
