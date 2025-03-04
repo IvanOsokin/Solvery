@@ -2,8 +2,8 @@
 #include "Text.h"
 
 TextEditor::TextEditor(const std::filesystem::path& input, const std::filesystem::path& output)
-	: _txtReader(std::make_unique<TextFileReader>(input))
-	, _txtWriter(std::make_unique<TextFileWriter>(output))
+	: _txtReader{ std::make_unique<TextFileReader>(input) }
+	, _txtWriter{ std::make_unique<TextFileWriter>(output) }
 { }
 
 void TextEditor::ReplaceSubstring(const std::string& oldPattern, const std::string& newPattern)
@@ -12,7 +12,7 @@ void TextEditor::ReplaceSubstring(const std::string& oldPattern, const std::stri
 	while (!_txtReader->Eof())
 	{
 		auto str = _txtReader->Read(_bufSize);
-		Text text(std::move(str));
+		Text text{ std::move(str) };
 		size_t endPos;
 		if (text.TailStartsWithPattern(oldPattern, endPos))
 		{
@@ -29,7 +29,7 @@ void TextEditor::ReplaceSubstring(const std::string& oldPattern, const std::stri
 					curBufSize = extraBufSize;
 				}
 
-				Text tmpText(_txtReader->Read(curBufSize));
+				Text tmpText{ _txtReader->Read(curBufSize) };
 				text.Append(tmpText);
 
 				extraBufSize -= curBufSize;

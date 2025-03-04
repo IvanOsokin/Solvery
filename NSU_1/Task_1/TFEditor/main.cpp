@@ -11,14 +11,14 @@ int main(int argc, char* argv[])
 		return TFEConst::Errors::INVALID_CMDLINE_ARGS_CNT;
 	}
 
-	std::filesystem::path inputFile = std::filesystem::path(argv[TFEConst::Arguments::CMD_IDX_INPUT_FILE]);
+	std::filesystem::path inputFile{ argv[TFEConst::Arguments::CMD_IDX_INPUT_FILE] };
 	if (!std::filesystem::exists(inputFile))
 	{
 		std::cerr << "Error: the input file \"" << inputFile.string() << "\" does not exist on the drive \"" << inputFile.root_path().string() << "\".";
 		return TFEConst::Errors::SRC_FILE_NOT_EXITS;
 	}
 
-	std::filesystem::path outputFile = std::filesystem::path(argv[TFEConst::Arguments::CMD_IDX_OUTPUT_FILE]);
+	std::filesystem::path outputFile{ argv[TFEConst::Arguments::CMD_IDX_OUTPUT_FILE] };
 	if (!outputFile.has_filename() || !outputFile.has_extension())
 	{
 		std::cerr << "Error: the specified output file name is invalid!";
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		TextEditor textEditor(inputFile, outputFile);
+		TextEditor textEditor{ inputFile, outputFile };
 		textEditor.ReplaceSubstring(argv[TFEConst::Arguments::CMD_IDX_OLD_PATTERN], argv[TFEConst::Arguments::CMD_IDX_NEW_PATTERN]);
 		return EXIT_SUCCESS;
 	}

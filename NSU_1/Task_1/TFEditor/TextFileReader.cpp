@@ -15,15 +15,20 @@ void TextFileReader::Reset()
 
 std::string TextFileReader::Read(size_t size)
 {
-	if (!_fs.is_open())
-	{
-		throw std::runtime_error(std::string("Read file error: cannot get access to the file: " + _fileName.string()));
-	}
-
 	std::string charArray(size, '\0');
 	if (!_fs.eof())
 	{
-		_fs.read(charArray.data(), size);
+		try
+		{
+			_fs.read(charArray.data(), size);
+		}
+		catch (const std::ios_base::failure& fail)
+		{
+			if (0 == (_fs.rdstate() & std::ios_base::eofbit))
+			{
+				throw fail;
+			}
+		}
 		size_t readCnt = static_cast<size_t>(_fs.gcount());
 		if (readCnt < size)
 		{
