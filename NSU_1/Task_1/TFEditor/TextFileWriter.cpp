@@ -3,6 +3,7 @@
 TextFileWriter::TextFileWriter(const std::filesystem::path& fileName)
 {
 	_fileName = fileName;
+	_fs.exceptions(std::ios_base::badbit | std::ios_base::failbit);
 	_fs.open(fileName);
 }
 
