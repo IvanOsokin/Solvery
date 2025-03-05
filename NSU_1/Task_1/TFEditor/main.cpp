@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 	}
 	catch (const std::exception& e)
 	{
-		std::vformat(TFEConst::Messages::MSG_RUNTIME_ERROR, std::make_format_args(e.what()));
+		std::cerr << std::vformat(TFEConst::Messages::MSG_RUNTIME_ERROR, std::make_format_args(e.what()));
 		return EXIT_FAILURE;
 	}
 }
