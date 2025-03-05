@@ -2,7 +2,6 @@
 
 #include "pch.h"
 
-#include "Utils.h"
 #include "TextFileWriter.h"
 
 class TextFileWriterTest : public ::testing::Test
@@ -10,8 +9,8 @@ class TextFileWriterTest : public ::testing::Test
 public:
     TextFileWriterTest()
     {
-        fs::path executable(::testing::internal::GetArgvs().front());
-        fs::path testWriteFile(executable.parent_path().parent_path().parent_path());
+        std::filesystem::path executable(::testing::internal::GetArgvs().front());
+        std::filesystem::path testWriteFile(executable.parent_path().parent_path().parent_path());
         testWriteFile /= "Task_1\\TFEditor_Test\\Files\\outputWrite.txt";
 
         _txtWriter = new TextFileWriter(testWriteFile);
@@ -25,7 +24,7 @@ public:
 
 protected:
     TextFileWriter* _txtWriter;
-    fs::path _fileName;
+    std::filesystem::path _fileName;
 };
 
 TEST_F(TextFileWriterTest, TestCtor)
@@ -35,8 +34,8 @@ TEST_F(TextFileWriterTest, TestCtor)
 
 TEST_F(TextFileWriterTest, TestGetFileName)
 {
-    fs::path executable(::testing::internal::GetArgvs().front());
-    fs::path testWriteFile(executable.parent_path().parent_path().parent_path());
+    std::filesystem::path executable(::testing::internal::GetArgvs().front());
+    std::filesystem::path testWriteFile(executable.parent_path().parent_path().parent_path());
     testWriteFile /= "Task_1\\TFEditor_Test\\Files\\outputWrite.txt";
     EXPECT_EQ(_txtWriter->GetFileName(), testWriteFile);
 }

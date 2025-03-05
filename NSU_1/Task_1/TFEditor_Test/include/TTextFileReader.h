@@ -2,7 +2,6 @@
 
 #include "pch.h"
 
-#include "Utils.h"
 #include "TextFileReader.h"
 
 class TextFileReaderTest : public ::testing::Test
@@ -10,8 +9,8 @@ class TextFileReaderTest : public ::testing::Test
 public:
     TextFileReaderTest()
     {
-        fs::path executable(::testing::internal::GetArgvs().front());
-        fs::path testReadFile(executable.parent_path().parent_path().parent_path());
+        std::filesystem::path executable(::testing::internal::GetArgvs().front());
+        std::filesystem::path testReadFile(executable.parent_path().parent_path().parent_path());
         testReadFile /= "Task_1\\TFEditor_Test\\Files\\inputRead.txt";
 
         _txtReader = new TextFileReader(testReadFile);
@@ -26,7 +25,7 @@ public:
 protected:
     TextFileReader* _txtReader;
     const size_t _size = 1024;
-    fs::path _fileName;
+    std::filesystem::path _fileName;
 };
 
 TEST_F(TextFileReaderTest, TestCtor)
@@ -36,8 +35,8 @@ TEST_F(TextFileReaderTest, TestCtor)
 
 TEST_F(TextFileReaderTest, TestGetFileName)
 {
-    fs::path executable(::testing::internal::GetArgvs().front());
-    fs::path testReadFile(executable.parent_path().parent_path().parent_path());
+    std::filesystem::path executable(::testing::internal::GetArgvs().front());
+    std::filesystem::path testReadFile(executable.parent_path().parent_path().parent_path());
     testReadFile /= "Task_1\\TFEditor_Test\\Files\\inputRead.txt";
     EXPECT_EQ(_txtReader->GetFileName(), testReadFile);
 }
@@ -111,8 +110,8 @@ class TextFileReaderTest_InvalidTestFile : public ::testing::Test
 public:
     TextFileReaderTest_InvalidTestFile()
     {
-        fs::path executable(::testing::internal::GetArgvs().front());
-        fs::path testReadFile(executable.parent_path().parent_path().parent_path());
+        std::filesystem::path executable(::testing::internal::GetArgvs().front());
+        std::filesystem::path testReadFile(executable.parent_path().parent_path().parent_path());
         testReadFile /= "Task_1\\TFEditor_Test\\Files\\inputReadInvalid.txt";
 
         _txtReader = new TextFileReader(testReadFile);
@@ -126,7 +125,7 @@ public:
 
 protected:
     TextFileReader* _txtReader;
-    fs::path _fileName;
+    std::filesystem::path _fileName;
 };
 
 TEST_F(TextFileReaderTest_InvalidTestFile, TestCtor1)
@@ -149,8 +148,8 @@ class TextFileReaderTest_EmptyTestFile : public ::testing::Test
 public:
     TextFileReaderTest_EmptyTestFile()
     {
-        fs::path executable(::testing::internal::GetArgvs().front());
-        fs::path testReadFile(executable.parent_path().parent_path().parent_path());
+        std::filesystem::path executable(::testing::internal::GetArgvs().front());
+        std::filesystem::path testReadFile(executable.parent_path().parent_path().parent_path());
         testReadFile /= "Task_1\\TFEditor_Test\\Files\\inputRead_Empty.txt";
 
         _txtReader = new TextFileReader(testReadFile);
@@ -165,7 +164,7 @@ public:
 protected:
     TextFileReader* _txtReader;
     const size_t _size = 1024;
-    fs::path _fileName;
+    std::filesystem::path _fileName;
 };
 
 TEST_F(TextFileReaderTest_EmptyTestFile, TestEofFile_True)
