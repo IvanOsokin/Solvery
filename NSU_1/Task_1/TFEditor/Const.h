@@ -21,6 +21,10 @@ namespace TFEConst
 
 	namespace Messages
 	{
-
+		const char* MSG_INVALID_CMDLINE_ARGS_CNT = "Error: invalid number of the command line parameters : expect {}, actually {}!";
+		const char* MSG_SRC_FILE_NOT_EXITS		 = "Error: the input file \"{}\" does not exist on the drive \"{}\".";
+		const char* MSG_INVALID_OUTPUT_FILENAME  = "Error: the specified output file name is invalid!";
+		const char* MSG_INVALID_OUTPUT_DIRECTORY = "Error: he directory for the output file \"{}\" does not exist!";
+		const char* MSG_RUNTIME_ERROR			 = "An error occured during process: {}!";
 	}
 }

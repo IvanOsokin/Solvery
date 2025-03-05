@@ -7,21 +7,21 @@ int main(int argc, char* argv[])
 {
 	if (5 != argc)
 	{
-		std::cerr << "Error: invalid number of the command line parameters: expect 5, actually " << argc << ".";
+		std::cerr << std::vformat(TFEConst::Messages::MSG_INVALID_CMDLINE_ARGS_CNT, std::make_format_args(5, argc));
 		return TFEConst::Errors::INVALID_CMDLINE_ARGS_CNT;
 	}
 
 	std::filesystem::path inputFile{ argv[TFEConst::Arguments::CMD_IDX_INPUT_FILE] };
 	if (!std::filesystem::exists(inputFile))
 	{
-		std::cerr << "Error: the input file \"" << inputFile.string() << "\" does not exist on the drive \"" << inputFile.root_path().string() << "\".";
+		std::cerr << std::vformat(TFEConst::Messages::MSG_SRC_FILE_NOT_EXITS, std::make_format_args(inputFile.string(), inputFile.root_path().string()));
 		return TFEConst::Errors::SRC_FILE_NOT_EXITS;
 	}
 
 	std::filesystem::path outputFile{ argv[TFEConst::Arguments::CMD_IDX_OUTPUT_FILE] };
 	if (!outputFile.has_filename() || !outputFile.has_extension())
 	{
-		std::cerr << "Error: the specified output file name is invalid!";
+		std::cerr << TFEConst::Messages::MSG_INVALID_OUTPUT_FILENAME;
 		return TFEConst::Errors::INVALID_OUTPUT_FILENAME;
 	}
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 	}
 	else if (!std::filesystem::exists(outputFile.parent_path()))
 	{
-		std::cerr << "Error: he directory for the output file \"" << outputFile.parent_path().string() << "\" does not exist!";
+		std::cerr << std::vformat(TFEConst::Messages::MSG_INVALID_OUTPUT_DIRECTORY, std::make_format_args(outputFile.parent_path().string()));
 		return TFEConst::Errors::INVALID_OUTPUT_DIRECTORY;
 	}
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "An error occured during process: " << e.what();
+		std::vformat(TFEConst::Messages::MSG_RUNTIME_ERROR, std::make_format_args(e.what()));
 		return EXIT_FAILURE;
 	}
 }
