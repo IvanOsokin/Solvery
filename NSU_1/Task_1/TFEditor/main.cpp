@@ -3,11 +3,17 @@
 #include "TextEditor.h"
 #include "Const.h"
 
+const int GetExpectedArgumentCount(const char* const* /*argv*/)
+{
+	return 5;
+}
+
 int main(int argc, char* argv[])
 {
-	if (5 != argc)
+	const int expectedArgCnt = GetExpectedArgumentCount(argv);
+	if (expectedArgCnt != argc)
 	{
-		std::cerr << std::vformat(TFEConst::Messages::MSG_INVALID_CMDLINE_ARGS_CNT, std::make_format_args(5, argc));
+		std::cerr << std::vformat(TFEConst::Messages::MSG_INVALID_CMDLINE_ARGS_CNT, std::make_format_args(expectedArgCnt, argc));
 		return TFEConst::Errors::INVALID_CMDLINE_ARGS_CNT;
 	}
 
