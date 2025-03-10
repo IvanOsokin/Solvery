@@ -9,7 +9,7 @@ class TextEditor
 {
 public:
 	TextEditor() = delete;
-	TextEditor(const TextEditor& other) = delete;
+	explicit TextEditor(const TextEditor& other) = delete;
 	TextEditor(const std::filesystem::path& input, const std::filesystem::path& output);
 	~TextEditor() = default;
 
@@ -18,7 +18,7 @@ public:
 private:
 	void ResetTextFileHandlers() const;
 
-	std::unique_ptr<TextFileReader> _txtReader;
-	std::unique_ptr<TextFileWriter> _txtWriter;
-	const int _bufSize = 1024;
+	std::unique_ptr<TextFileReader> _textReader;
+	std::unique_ptr<TextFileWriter> _textWriter;
+	const size_t _bufferSize = 1024;
 };

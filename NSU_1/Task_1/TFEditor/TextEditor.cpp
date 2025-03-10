@@ -2,51 +2,51 @@
 #include "Text.h"
 
 TextEditor::TextEditor(const std::filesystem::path& input, const std::filesystem::path& output)
-	: _txtReader{ std::make_unique<TextFileReader>(input) }
-	, _txtWriter{ std::make_unique<TextFileWriter>(output) }
+	: _textReader{ std::make_unique<TextFileReader>(input) }
+	, _textWriter{ std::make_unique<TextFileWriter>(output) }
 { }
 
 void TextEditor::ReplaceSubstring(const std::string& oldPattern, const std::string& newPattern)
 {
 	ResetTextFileHandlers();
-	while (!_txtReader->Eof())
+	while (!_textReader->Eof())
 	{
-		auto str = _txtReader->Read(_bufSize);
+		std::string str = _textReader->Read(_bufferSize);
 		Text text{ std::move(str) };
-		size_t endPos;
-		if (text.TailStartsWithPattern(oldPattern, endPos))
+		size_t endPosition;
+		if (text.TailStartsWithPattern(oldPattern, endPosition))
 		{
-			size_t extraBufSize = oldPattern.size() - (text.Size() - endPos);
+			size_t extraBufferSize = oldPattern.size() - (text.Size() - endPosition);
 			do
 			{
-				size_t curBufSize = 0;
-				if (_bufSize < extraBufSize)
+				size_t currentBufferSize = 0;
+				if (_bufferSize < extraBufferSize)
 				{
-					curBufSize = _bufSize;
+					currentBufferSize = _bufferSize;
 				}
 				else
 				{
-					curBufSize = extraBufSize;
+					currentBufferSize = extraBufferSize;
 				}
 
-				Text tmpText{ _txtReader->Read(curBufSize) };
+				Text tmpText{ _textReader->Read(currentBufferSize) };
 				text.Append(tmpText);
 
-				extraBufSize -= curBufSize;
+				extraBufferSize -= currentBufferSize;
 
-			} while (0 < extraBufSize);
+			} while (0 < extraBufferSize);
 		}
 		if (!oldPattern.empty())
 		{
 			text.Replace(oldPattern, newPattern);
 		}
-		_txtWriter->Write(text.Data());
+		_textWriter->Write(text.Data());
 	}
-	_txtWriter->Flush();
+	_textWriter->Flush();
 }
 
 void TextEditor::ResetTextFileHandlers() const
 {
-	_txtReader->Reset();
-	_txtWriter->Reset();
+	_textReader->Reset();
+	_textWriter->Reset();
 }

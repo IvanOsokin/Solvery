@@ -4,16 +4,16 @@ Text& Text::Replace(const std::string& oldPattern, const std::string& newPattern
 {
 	if (!oldPattern.empty())
 	{
-		size_t nextPos = 0UL;
-		size_t pos = _data.find(oldPattern, nextPos);
-		while (std::string::npos != pos)
+		size_t nextPosition = 0UL;
+		size_t currentPosition = _data.find(oldPattern, nextPosition);
+		while (std::string::npos != currentPosition)
 		{
-			_data.replace(pos, oldPattern.size(), newPattern);
+			_data.replace(currentPosition, oldPattern.size(), newPattern);
 			if (newPattern.size() > oldPattern.size())
 			{
-				nextPos = pos + newPattern.size();
+				nextPosition = currentPosition + newPattern.size();
 			}
-			pos = _data.find(oldPattern, nextPos);
+			currentPosition = _data.find(oldPattern, nextPosition);
 		}
 	}
 	return *this;
@@ -28,35 +28,35 @@ Text& Text::Append(const Text& text)
 	return *this;
 }
 
-bool Text::TailStartsWithPattern(const std::string& pattern, size_t& patternLastPos) const
+bool Text::TailStartsWithPattern(const std::string& pattern, size_t& patternLastPosition) const
 {
 	if (_data.empty() || pattern.empty())
 	{
 		return false;
 	}
 
-	size_t nextPos = 0UL;
-	patternLastPos = _data.find(pattern[0], nextPos);
-	while (std::string::npos != patternLastPos)
+	size_t nextPosition = 0UL;
+	patternLastPosition = _data.find(pattern[0], nextPosition);
+	while (std::string::npos != patternLastPosition)
 	{
-		size_t substrSize = _data.size() - patternLastPos;
-		auto p = _data.find(pattern.substr(0, substrSize), nextPos);
+		size_t substrSize = _data.size() - patternLastPosition;
+		size_t p = _data.find(pattern.substr(0, substrSize), nextPosition);
 		if (std::string::npos != p)
 		{
 			break;
 		}
-		nextPos = patternLastPos + 1;
-		patternLastPos = _data.find(pattern[0], nextPos);
+		nextPosition = patternLastPosition + 1;
+		patternLastPosition = _data.find(pattern[0], nextPosition);
 	}
 
-	if (std::string::npos == patternLastPos)
+	if (std::string::npos == patternLastPosition)
 	{
 		return false;
 	}
 
-	if (_data.size() - patternLastPos >= pattern.size())
+	if (_data.size() - patternLastPosition >= pattern.size())
 	{
-		patternLastPos = std::string::npos;
+		patternLastPosition = std::string::npos;
 		return false;
 	}
 	return true;

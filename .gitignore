@@ -1,3 +1,6 @@
+#Common ignores
+/*.docx
+
 #Solution ignores
 NSU_1/.vs
 NSU_1/packages
