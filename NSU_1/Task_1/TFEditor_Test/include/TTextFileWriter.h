@@ -9,56 +9,53 @@ class TextFileWriterTest : public ::testing::Test
 public:
     TextFileWriterTest()
     {
-        std::filesystem::path executable(::testing::internal::GetArgvs().front());
-        std::filesystem::path testWriteFile(executable.parent_path().parent_path().parent_path());
-        testWriteFile /= "Task_1\\TFEditor_Test\\Files\\outputWrite.txt";
+        const std::filesystem::path executable{ ::testing::internal::GetArgvs().front() };
+        std::filesystem::path testOutputFile{ executable.parent_path().parent_path().parent_path() };
+        testOutputFile /= "Task_1\\TFEditor_Test\\Files\\outputWrite.txt";
 
-        _txtWriter = new TextFileWriter(testWriteFile);
-        _fileName = testWriteFile;
+        _textWriter = std::make_unique<TextFileWriter>(testOutputFile);
+        _fileName = testOutputFile;
     }
 
-    ~TextFileWriterTest()
-    {
-        if (_txtWriter) delete _txtWriter;
-    }
+    ~TextFileWriterTest() = default;
 
 protected:
-    TextFileWriter* _txtWriter;
+    std::unique_ptr<TextFileWriter> _textWriter;
     std::filesystem::path _fileName;
 };
 
 TEST_F(TextFileWriterTest, TestCtor)
 {
-    ASSERT_NE(_txtWriter, nullptr);
+    ASSERT_NE(_textWriter, nullptr);
 }
 
 TEST_F(TextFileWriterTest, TestGetFileName)
 {
-    std::filesystem::path executable(::testing::internal::GetArgvs().front());
-    std::filesystem::path testWriteFile(executable.parent_path().parent_path().parent_path());
-    testWriteFile /= "Task_1\\TFEditor_Test\\Files\\outputWrite.txt";
-    EXPECT_EQ(_txtWriter->GetFileName(), testWriteFile);
+    const std::filesystem::path executable{ ::testing::internal::GetArgvs().front() };
+    std::filesystem::path testOutputFile{ executable.parent_path().parent_path().parent_path() };
+    testOutputFile /= "Task_1\\TFEditor_Test\\Files\\outputWrite.txt";
+    EXPECT_EQ(_textWriter->GetFileName(), testOutputFile);
 }
 
 TEST_F(TextFileWriterTest, TestReset)
 {
-    TextFileReader tfr(_txtWriter->GetFileName());
+    TextFileReader textFileReader(_textWriter->GetFileName());
 
-    std::string str{"string"};
-    _txtWriter->Write(str);
-    _txtWriter->Reset();
-    _txtWriter->Write(str);
-    auto result = tfr.Read(100);
-    EXPECT_EQ(result, str);
+    const std::string stringToWrite{ "string" };
+    _textWriter->Write(stringToWrite);
+    _textWriter->Reset();
+    _textWriter->Write(stringToWrite);
+    const std::string readString = textFileReader.Read(100);
+    EXPECT_EQ(readString, stringToWrite);
 }
 
 TEST_F(TextFileWriterTest, TestWrite)
 {
-    TextFileReader tfr(_txtWriter->GetFileName());
+    TextFileReader textFileReader(_textWriter->GetFileName());
 
-    std::string str{"TestWrite"};
-    _txtWriter->Write(str);
-    _txtWriter->Flush();
-    auto result = tfr.Read(100);
-    EXPECT_EQ(result, str);
+    const std::string stringToWrite{ "TestWrite" };
+    _textWriter->Write(stringToWrite);
+    _textWriter->Flush();
+    const std::string readString = textFileReader.Read(100);
+    EXPECT_EQ(readString, stringToWrite);
 }
